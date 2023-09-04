@@ -5,7 +5,7 @@ services:
   taxi-server:
     build:
       context: ./server
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: taxi-server
     depends_on:
       - taxi-redis
@@ -39,7 +39,7 @@ services:
   taxi-client:
     build:
       context: ./client
-    command: yarn start
+    # command: yarn run start
     container_name: taxi-client
     depends_on:
       - taxi-server

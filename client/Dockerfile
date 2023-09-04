@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:19.0-alpine
+FROM node:latest
 
 # set working directory
 WORKDIR /usr/src/app
@@ -8,9 +8,9 @@ WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY package.json .
-COPY yarn.lock .
-RUN yarn install --production
-
-# copy project
 COPY . .
+# COPY yarn.lock .
+RUN yarn install
+
+ENTRYPOINT [ "yarn", "run", "start" ]
+# copy project
